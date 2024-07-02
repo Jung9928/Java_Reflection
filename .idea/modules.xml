@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Java_Reflection.iml" filepath="$PROJECT_DIR$/.idea/Java_Reflection.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java_reflection/java_reflection.iml" filepath="$PROJECT_DIR$/java_reflection/java_reflection.iml" />
     </modules>
   </component>
 </project>
