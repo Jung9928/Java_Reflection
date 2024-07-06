@@ -1,106 +1,12 @@
-# Java 클래스의 인스턴스 생성 & 생성자 정보 출력하기
+package exercises.section_02.chap_06;
 
-### 방법 1) Reflection의 Constructor 객체를 사용하여 인스턴스 생성 및 생성자 정보 출력
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
-```Java
-public class Main {
-
-    public static void main(String[] args) throws ClassNotFoundException {
-        
-        // Person 클래스의 생성자 정보 출력
-        printConstructorData(Person.class);
-    }
-
-    public static void printConstructorData(Class<?> clazz) {
-        
-        // 매개변수로 받은 클래스 내의 정의된 메소드(필드)의 메타 데이터를 가져옴. 
-        Constructor<?>[] constructors = clazz.getDeclaredConstructors();
-        
-        System.out.println(String.format("class %s has %d declared constructors", clazz.getSimpleName(), constructors.length));
-        
-        for(int i=0; i<constructors.length; i++) {
-            Class<?>[] parameterTypes = constructors[i].getParameterTypes();
-            
-            List<String> parameterTypeNames = Arrays.stream(parameterTypes)
-                    .map(type -> type.getSimpleName())
-                    .collect(Collectors.toList());
-            
-            System.out.println(parameterTypeNames);
-        }
-    }
-    
-    public static class Person {
-        private final Address address;
-        private final String name;
-        private final int age;
-        
-        public Person() {
-            this.name = "anonymous";
-            this.age = 0;
-            this.address = null;
-        }
-
-        public Person(String name) {
-            this.name = name;
-            this.age = 0;
-            this.address = null;
-        }
-
-        public Person(String name, int age) {
-            this.name = name;
-            this.age = age;
-            this.address = null;
-        }
-
-        public Person(Address address, String name, int age) {
-            this.name = name;
-            this.age = age;
-            this.address = address;
-        }
-    }
-
-    public static class Address {
-        private String street;
-        private int number;
-        
-        public Address(String street, int number) {
-            this.street = street;
-            this.number = number;
-        }
-    }
-}
-```
-<br>
-
-```text
-// ======== 
-// 실행결과
-// ========
-
-==========================
-class Person has 4 declared constructors
-[Address, String, int]
-[String, int]
-[String]
-[]
-==========================
-
-==========================
-class Address has 1 declared constructors
-[String, int]
-==========================
-
-종료 코드 0(으)로 완료된 프로세스
-```
-
-<br><br><br>
-
-### 방법 2) 클래스로더에 등록된 사용하여 인스턴스 생성
-- new를 사용하지 않고 클래스로더를 활용하여 클래스의 인스턴스를 생성함.
-
-
-```Java
-public class Main {
+public class Main2 {
 
     public static void main(String[] args) throws Exception {
 
@@ -111,7 +17,7 @@ public class Main {
         System.out.println("==================================");
 
         System.out.println();
-        
+
         System.out.println("==================================");
         Person person2= createInstanceWithArguments(Person.class);
         System.out.println(person2);
@@ -208,24 +114,3 @@ public class Main {
         }
     }
 }
-```
-
-```text
-// ======== 
-// 실행결과
-// ========
-
-==================================
-Person{address = Address{street = First street', number = '10}, name = 'John', age=20}
-==================================
-
-==================================
-Person{address = null, name = 'anonymous', age=0}
-==================================
-
-==================================
-Person{address = null, name = 'John', age=20}
-==================================
-
-종료 코드 0(으)로 완료된 프로세스
-```

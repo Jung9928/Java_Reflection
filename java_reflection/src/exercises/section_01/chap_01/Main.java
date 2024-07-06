@@ -1,4 +1,4 @@
-package exercises;
+package exercises.section_01.chap_01;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -13,21 +13,21 @@ public class Main {
 
         Class<?> hashMapClass = mapObject.getClass();
 
-        Class<?> squareClass = Class.forName("exercises.Main$Square");      // exercises는 패키지명
+        Class<?> squareClass = Class.forName("exercises.section_01.chap_01.Main$Square");      // exercises는 패키지명
 
 //        System.out.println("=================================================");
 //        printClassInfo(stringClass, hashMapClass, squareClass);
 //        System.out.println("=================================================");
 //        System.out.println();
 
-        var circleObject = new Drawable() {
+        var circleObject = new exercises.section_01.chap_01.Main.Drawable() {
             @Override
             public int getNumberOfCorners() {
                 return 0;
             }
         };
 
-        printClassInfo(Collections.class, boolean.class, int[][].class, Color.class, circleObject.getClass());
+        printClassInfo(Collections.class, boolean.class, int[][].class, exercises.section_01.chap_01.Main.Color.class, circleObject.getClass());
     }
 
     private static void printClassInfo(Class<?> ... classes) {
@@ -57,7 +57,7 @@ public class Main {
         }
     }
 
-    private static class Square implements Drawable {
+    private static class Square implements exercises.section_01.chap_01.Main.Drawable {
 
         @Override
         public int getNumberOfCorners() {
